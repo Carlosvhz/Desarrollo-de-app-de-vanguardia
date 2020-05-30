@@ -6,7 +6,8 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 /*
-Ejemplo singleton donde un objeto singleton contiene los métodos necesarios para escribir y modificar un archivo dado
+Este es un caso en donde en el proyecto se necesita crear un solo objeto que permita
+realizar operaciones a los archivos.
 */
 
 public class Singleton {
