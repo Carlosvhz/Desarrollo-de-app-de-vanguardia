@@ -19,6 +19,7 @@ class UserSubject {
     }
     
     public void setAmount(int amount){
+        System.out.println("El nuevo monto total es: "+ amount+ " lempiras");
         this.amount = amount;
     }
     
@@ -49,7 +50,7 @@ class UserObserver extends Observer{
     public void suggest(int amount){
         if(amount > user.getAmount()){
             System.out.println("El usuario "+name+" ha propuesto "+amount+" lempiras");
-            user.setAmount(amount);
+            user.setAmount(user.getAmount()+amount);
         }else{
             System.out.println("No puedes agregar menos del dinero ya propuesto!!");
         }
