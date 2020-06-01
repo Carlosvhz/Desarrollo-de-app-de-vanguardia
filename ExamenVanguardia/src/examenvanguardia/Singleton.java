@@ -1,90 +1,65 @@
 package examenvanguardia;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 /*
-Este es un caso en donde en el proyecto se necesita crear un solo objeto que permita
-realizar operaciones a los archivos.
+Se toma el caso de inicios de sesión de WhatsApp web, donde un solo usuario  
+puede iniciar sesión en una computadora, se necesita cerrar sesión en la computadora
+actual para poder iniciar en otra o poder iniciar sesión otro usuario.
+
+Se toma en consideración que el objeto Singleton es un usuario que solamente puede 
+crearse (en este caso iniciar sesión) solamente una vez.
 */
 
 public class Singleton {
     
-    private BufferedReader br = null;
-    private BufferedWriter bw = null;
-    private FileReader reader = null;
-    private FileWriter writer = null;
-    private File file = null;
-    private String url;
+    private String correoElectronico;
+    private String password;
     private static Singleton instancia;
     
     
-    public static Singleton getInstance(String url){
+    private Singleton(String correoElectronico, String password){
+        this.correoElectronico = correoElectronico;
+        this.password = password;
+    }
+    
+    public static Singleton getInstance(String correoElectronico, String password){
         if(instancia == null){
-            instancia = new Singleton(url);
+            System.out.println("Sesión creada con éxito");
+            instancia = new Singleton(correoElectronico, password);
+        }else{
+            System.out.println("Este usuario ya tiene sesión abierta");
         }
         return instancia;
     }
     
-    private Singleton(String url){
-        this.url = url;
+    public void deleteInstance(){
+        instancia = null;
     }
     
-    public void setURL(String url){
-        this.url = url;
+    public String getCorreoElectronico(){
+        return this.correoElectronico;
     }
+    
+}
 
-    //WriteFile
-    public void writeFile(String url, String texto){
-        this.url = url;
-        writeFile(texto);
+class PC {
+    
+    private Singleton singleton;
+    private int pcId;
+    
+    public PC(int pcId){
+        System.out.println("Se ha encendido el PC "+pcId);
+        this.pcId = pcId;
     }
     
-    public void writeFile(String texto){
-        try {
-            file = new File(url);
-            writer = new FileWriter(file);
-            writer.write(texto);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                if (file ==null)
-                    writer.close();
-                System.out.println("No existe el archivo");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Hubo un error");
-            }
-        }
+    public void signIn(String correo, String password){
+        singleton = Singleton.getInstance(correo, password);
     }
     
-    // ReadFile
-    public void readFile(String url){
-        this.url = url;
-        readFile();
-    }  
-    
-    public void readFile(){
-        try {
-            file = new File(url);
-            reader = new FileReader(file);
-            br = new BufferedReader(reader);
-            String line;
-            while( (line=br.readLine())!=null )
-                System.out.println(line);
-        } catch (Exception e) {
-        }finally{
-            try {
-                if (reader==null)
-                    reader.close();
-                System.out.println("No existe el archivo");
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Hubo un error");
-            }
-        }
+    public void signOut(){
+        System.out.println("Sesión de "+singleton.getCorreoElectronico()+" ha sido cerrada");
+        singleton.deleteInstance();
+        singleton = null;
+        System.gc();
     }
+    
 }

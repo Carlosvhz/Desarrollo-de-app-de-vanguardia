@@ -7,8 +7,16 @@ public class ExamenVanguardia {
     public static void main(String[] args) {
         
         // Singleton
-        /*Singleton singleton = Singleton.getInstance("C:\\Users\\carlo\\Desktop\\texto.txt");
-        singleton.writeFile("Holliwis");*/
+        PC pc1 = new PC(1);
+        PC pc2 = new PC(2);
+        PC pc3 = new PC(3);
+        
+        pc1.signIn("ReseT@rude.com", "1234"); // 
+        pc2.signIn("ReseT@rude.com", "1234");
+        pc3.signIn("ReseT@rude.com", "1234");
+        pc1.signOut();
+        pc3.signIn("ReseT@rude.com", "1234");
+        
         
         // Factory
         /*TableFactory factory = new TableFactory();
@@ -30,13 +38,15 @@ public class ExamenVanguardia {
         user4.suggest(10000);*/
         
         //Builder
-        ErrorBuilder builder = new ErrorBuilder(10, 12000, 01);
+        /*ErrorBuilder builder = new ErrorBuilder(10, 12000, 01);
         Error error = builder.withMetric(576000)
                 .withDuration(120000)
-                .withMetricId(57)
                 .withTimeStamp("10:00:23:12")
                 .buildError();
         
-        System.out.println(error);
+        System.out.println(error);*/
+        
+        //Adapter
+        
     }
 }

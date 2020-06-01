@@ -16,7 +16,6 @@ class Error{
     private int timeId;
     private String timeStamp;
     private float metric;
-    private int metricId;
     private int duration;
     private int interfaceId;
     
@@ -60,14 +59,6 @@ class Error{
         this.metric = metric;
     }
     
-    // ==> MetricID
-    public float getMetricId(){
-        return metricId;
-    }
-    
-    public void setMetricId(int metricId){
-        this.metricId = metricId;
-    }
     
     // ==> Duration
     public int getDuration(){
@@ -131,7 +122,6 @@ class ErrorBuilder extends Builder{
         error.setDuration(this.duration);
         error.setInterfaceId(this.interfaceId);
         error.setMetric(this.metric);
-        error.setMetricId(this.metricId);
         error.setTimeId(this.timeId);
         error.setTimeStamp(this.timeStamp);
         return error;
