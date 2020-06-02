@@ -1,8 +1,5 @@
 package examenvanguardia;
 
-/**
- * Se toma coomo caso el uso de este patron de diseño en un sistema de ventas como Ebay
- */
 public abstract class Observer {   
     protected UserSubject user;
     public abstract void update();

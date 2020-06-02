@@ -1,23 +1,18 @@
 package examenvanguardia;
 
-/*
-Se considera el caso en el que se crea una clase que representa un error o alerta
-cuando una redtiene algún problema. Esta clase se creará tantas veces sea posible
-en distintos momentos con diveros parámetros.
+import java.time.LocalDateTime;
 
-*/
 public abstract class Builder {
     abstract Error buildError();
 }
 
-class Error{
+class Error extends Exception{
     
     private int elementId;
-    private int timeId;
-    private String timeStamp;
-    private float metric;
+    private int lineCode; // Linea de código de donde empieza el try catch
+    private String timeStamp; // Tiempo en el que ocurre el error
+    private String keyWord; // Palabra clave como referencia, opcional
     private int duration;
-    private int interfaceId;
     
     
     public Error(){
@@ -32,13 +27,13 @@ class Error{
         this.elementId = elementId;
     }
     
-    // ==> TimeID
-    public int getTimeId(){
-        return timeId;
+    // ==> lineCode
+    public int getLineCode(){
+        return lineCode;
     }
     
-    public void setTimeId(int timeId){
-        this.timeId = timeId;
+    public void setLineCode(int lineCode){
+        this.lineCode = lineCode;
     }
     
     // ==> TimeStamp
@@ -50,15 +45,14 @@ class Error{
         this.timeStamp = timeStamp;
     }
     
-    // ==> Metric
-    public float getMetric(){
-        return metric;
+    // ==> key word
+    public String getKeyWord(){
+        return keyWord;
     }
     
-    public void setMetric(float metric){
-        this.metric = metric;
+    public void setKeyWord(String keyWord){
+        this.keyWord = keyWord;
     }
-    
     
     // ==> Duration
     public int getDuration(){
@@ -66,49 +60,37 @@ class Error{
     }
     
     public void setDuration(int duration){
-        this.duration = duration;
+        this.duration = duration; //Segundos en los que ha transcurrido la compilación hasta
+                                  // el momento del error
     }
     
-    // ==> InterfaceID
-    public int getInterfaceId(){
-        return interfaceId;
-    }
-    
-    public void setInterfaceId(int interfaceId){
-        this.interfaceId = interfaceId;
-    }
 }
 
 class ErrorBuilder extends Builder{
     
     private int elementId;
-    private int timeId;
+    private int lineCode;
     private String timeStamp;
-    private float metric;
-    private int metricId;
+    private String keyWord;
     private int duration;
-    private int interfaceId;
+    private Exception exception = new Exception();
     
-    public ErrorBuilder(int elementId, int timeId, int interfaceId){
+    public ErrorBuilder(int elementId, int lineCode){
         this.elementId = elementId;
-        this.timeId = timeId;
-        this.interfaceId = interfaceId;
+        this.lineCode = lineCode;
     }
     
-    public ErrorBuilder withTimeStamp(String timeStamp){
-        this.timeStamp = timeStamp;
+    public ErrorBuilder withTimeStamp(){
+        LocalDateTime now = LocalDateTime.now();
+        this.timeStamp = now.toString();
         return this;
     }
     
-    public ErrorBuilder withMetric(float metric){
-        this.metric = metric;
+    public ErrorBuilder withKeyWord(String keyWord){
+        this.keyWord = keyWord;
         return this;
     }
-    
-    public ErrorBuilder withMetricId(int metricId){
-        this.metricId = metricId;
-        return this;
-    }
+
     
     public ErrorBuilder withDuration(int duration){
         this.duration = duration;
@@ -120,10 +102,11 @@ class ErrorBuilder extends Builder{
         Error error  = new Error();
         error.setElementId(this.elementId);
         error.setDuration(this.duration);
-        error.setInterfaceId(this.interfaceId);
-        error.setMetric(this.metric);
-        error.setTimeId(this.timeId);
+        error.setKeyWord(this.keyWord);
+        error.setLineCode(this.lineCode);
         error.setTimeStamp(this.timeStamp);
+        System.err.print(error);
+        exception.printStackTrace();
         return error;
     }
     

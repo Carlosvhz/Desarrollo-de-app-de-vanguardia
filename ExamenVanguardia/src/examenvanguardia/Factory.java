@@ -1,35 +1,39 @@
 package examenvanguardia;
 
-/*
-Se propone un caso en el que el proyecto este usando diversas bases de datos,
-para poder convertir o cambiar la base de datos se implementará el patrón de diseño
-factory.
-*/
-
 public abstract class Factory{    
-   abstract void doSomething();
+   abstract void sendMessage();
 }
 
-class mySqlTable extends Factory{
-    public void doSomething(){
-        System.out.println("Making a new sql table");
+class customSupport extends Factory{
+    public void sendMessage(){
+        System.out.println("Ha marcado asistencia especialziada");
     }
 }
 
- class OracleTable extends Factory{
-    public void doSomething(){
-        System.out.println("Making a new Oracle table");
+class technicalSupport extends Factory{
+    public void sendMessage(){
+        System.out.println("Ha marcado asistencia técnico");
     }
 }
 
-class TableFactory {
+class promo extends Factory{
+    public void sendMessage(){
+        System.out.println("Ha marcado promociones");
+    }
+}
+
+class messageFactory {
     
-    public Factory createTable(String dbType){
-        if(dbType.equalsIgnoreCase("mysql")){
-            return new mySqlTable();
-        }else if (dbType.equalsIgnoreCase("oracle")){
-            return new OracleTable();
+    public Factory createMessage(String number){
+        System.out.println("Se ha ingresado el número: "+number);
+        if(number.equalsIgnoreCase("1")){
+            return new customSupport();
+        }else if (number.equalsIgnoreCase("2")){
+            return new technicalSupport();
+        }else if (number.equalsIgnoreCase("3")){
+            return new promo();
         }
+        System.out.println("Ha salido del asistente");
         return null;
     }
     
