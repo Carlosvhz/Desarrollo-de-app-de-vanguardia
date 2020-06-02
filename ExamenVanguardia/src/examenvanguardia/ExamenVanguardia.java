@@ -71,7 +71,7 @@ public class ExamenVanguardia {
         }*/
         
         //State
-        /* deliveryState ds = new deliveryState(null, "2");
+        /*deliveryState ds = new deliveryState(null, "2");
         
         ds.updatePackage();
         ds.updatePackage();

@@ -44,7 +44,7 @@ class inProcess extends State{
     
     @Override
     public void updatePackage(deliveryState state) {
-        System.out.println("El paquete está en proceso");
+        System.out.println("El paquete está en proceso, número de paquete: "+state.getPackageId());
         state.setState(new onTheWay());
     }
     
@@ -56,7 +56,7 @@ class onTheWay extends State{
     
     @Override
     public void updatePackage(deliveryState state){
-        System.out.println("El paquete está en camino");
+        System.out.println("El paquete está en camino, número de paquete: "+state.getPackageId());
         state.setState(new delivered());
     }
 }
@@ -67,7 +67,7 @@ class delivered extends State{
     
     @Override
     public void updatePackage(deliveryState state) {
-        System.out.println("El paquete ha sido entregado");
+        System.out.println("El paquete ha sido entregado, número de paquete: "+state.getPackageId());
     }
     
 }
